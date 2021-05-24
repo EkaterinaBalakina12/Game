@@ -1,0 +1,104 @@
+ <!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel="stylesheet" href="1.css">
+    <!-- <script src="script.js"></script> -->
+</head>
+
+<body>
+    <div id="d" class="board"></div>
+
+    <p><input class="button" type="button" value="Refresh" onClick="window.location.reload()"></p>
+
+    <script> 
+        let board = document.querySelector('.board'); //возвращает первый элемент, соответствующий данному CSS-селектору
+        let block;
+        let h=20;
+        let w=20;
+
+        document.getElementsByClassName('board')[0].style.height = (h*22)+"px";
+        document.getElementsByClassName('board')[0].style.width = (w*22)+"px";
+
+        for(let i=0; i<h; i++){        
+            for(let j=0; j<w; j++){  
+                
+                if (Math.random() > 0.05){
+                    block = document.createElement('div');
+                    block.className='block white';
+                    block.id = i+','+j; 
+                }
+                else{
+                    block = document.createElement('div');
+                    block.className='block black';
+                    block.id = i+','+j;
+                }              
+                board.appendChild(block); //вывод div
+            }
+        }
+
+        let d = document.querySelectorAll('#d div'); //возвращает все div внутри div с id="d"
+
+        for (var i = 0; i < d.length; i++) {
+            d[i].addEventListener('click', addSign) //обработчик событий к родителю  
+        }
+
+        function addSign() {
+            let idd = this.id.split(",");
+
+            //console.log(idd);
+
+            if (this.className == 'block black'){
+                this.className = 'block white';
+            }
+            else {
+                this.className = 'block black';
+            }   
+
+            for(let i=0; i<d.length; i++){        
+                if (d[i] == this){
+                                       
+                    if (idd[1] == (w-1)){                   
+                        minus(i,1);
+                        plus(i,w);                    
+                        minus(i,w);         
+                    } else if (idd[1] !=0){
+                            plus(i,1);
+                            minus(i,1);
+                            plus(i,w);                    
+                            minus(i,w);         
+                        } else{
+                            plus(i,1);
+                            plus(i,w); 
+                            minus(i,w); 
+                        }
+                }
+            }
+        }
+
+        function plus(ii, ww){
+            //console.log(ii+ww);
+           if ((ii+ww)<d.length){
+                if (d[ii+ww].className == 'block black'){
+                    d[ii+ww].className = 'block white';
+                } else{
+                    d[ii+ww].className = 'block black';
+                }
+           }
+            
+        }
+        function minus(ii, ww){
+            if ((ii-ww)>-1){
+                if (d[ii-ww].className == 'block black'){
+                    d[ii-ww].className = 'block white';
+                } else{
+                    d[ii-ww].className = 'block black';
+                }   
+            }
+        }
+    </script>
+</body>
+</html>

@@ -1,0 +1,37 @@
+body{
+background-color: antiquewhite;
+}
+
+.board{
+        margin: 30px auto;
+        border: 1px solid black;
+}
+
+.block{
+        height: 20px;
+        width: 20px;
+        float: left;
+}
+
+.black{
+        background: black;
+        border: 1px solid black;
+}
+
+.white{
+        background: white;
+        border: 1px solid black;
+}
+
+.button{
+        font-size: 16px;
+        padding: 10px 22px;
+        border-radius: 8px;
+        transition-duration: 0.4s;
+        margin:auto 45%;
+}
+    
+.button:hover{
+        background-color:darksalmon;
+        color: black;
+}
